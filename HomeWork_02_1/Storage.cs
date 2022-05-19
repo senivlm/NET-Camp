@@ -9,7 +9,7 @@ namespace NET_CAMP_HomeWork_s1_02_01
     public class Storage
     {
         //Fields
-        private int currentSize = 0;
+        private uint currentSize = 0;
         private Product[] products;
 
         //Constructors
