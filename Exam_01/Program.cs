@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleApp1
+namespace Exam_01
 {
     internal class Program
     {
@@ -13,7 +13,7 @@ namespace ConsoleApp1
         {
 
             Console.WriteLine("Input Size");
-            string str = Console.ReadLine();
+            string? str = Console.ReadLine();
             int size;
             if (!Int32.TryParse(str, out size))
             {

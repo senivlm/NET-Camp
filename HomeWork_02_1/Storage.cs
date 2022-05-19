@@ -9,8 +9,8 @@ namespace NET_CAMP_HomeWork_s1_02_01
     public class Storage
     {
         //Fields
-        protected int currentSize = 0;
-        protected Product[] products;
+        private int currentSize = 0;
+        private Product[] products;
 
         //Constructors
         //Свідомо не робив конструктор без параметрів, 3oоб захиститісь від створення об'ектів без ініціализованих обов`язкових полів\властивостей. Відкритий до дискусії стосовно цього.

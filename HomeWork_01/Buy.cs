@@ -31,8 +31,8 @@ namespace NET_CAMP_HomeWork_s1_01
                 CalculateBuying();
             }
         }
-        public float Amount { get; private set; }
-        public float Weight { get; private set; }
+        public float TotalAmount { get; private set; }
+        public float TotalWeight { get; private set; }
 
         //Constructors
         public Buy() { }
@@ -43,8 +43,8 @@ namespace NET_CAMP_HomeWork_s1_01
         //Methods
         private void CalculateBuying()
         {
-            this.Amount = (this.ProductItem != null) ? this.ProductItem.Price * this.Volume : 0;
-            this.Weight = (this.ProductItem != null) ? this.ProductItem.Weight * this.Volume : 0;
+            this.TotalAmount = (this.ProductItem != null) ? this.ProductItem.Price * this.Volume : 0;
+            this.TotalWeight = (this.ProductItem != null) ? this.ProductItem.Weight * this.Volume : 0;
         }
     }
 }

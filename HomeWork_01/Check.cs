@@ -10,13 +10,13 @@ namespace NET_CAMP_HomeWork_s1_01
     {
         public static void ShowAbout(Product product)
         {
-            Console.WriteLine($"Product {product.Name} Price {product.Price} Weight {product.Weight}");
+            Console.WriteLine($"Product {product.Name} Price {product.Price} TotalWeight {product.Weight}");
         }
 
 
         public static void ShowAbout(Buy buy)
         {
-            Console.WriteLine($"Product {buy.ProductItem?.Name} Volume {buy.Volume} Amount {buy.Amount} Weight {buy.Weight}");
+            Console.WriteLine($"Product {buy.ProductItem?.Name} Volume {buy.Volume} TotalAmount {buy.TotalAmount} TotalWeight {buy.TotalWeight}");
         }
 
     }
