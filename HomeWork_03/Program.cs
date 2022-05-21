@@ -41,6 +41,10 @@ try
     Console.WriteLine();
 
     //Оптимізувати метод InitShufle класу Vector, створений на занятті.
+    Vector vectorForTest6 = new(22);
+    vectorForTest6.InitShuffle();
+    Console.WriteLine($"Vector: {vectorForTest6}");
+    Console.WriteLine();
 
 }
 catch (Exception e)

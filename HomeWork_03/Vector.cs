@@ -60,22 +60,12 @@ namespace HomeWork_03
                 while (true)
                 {
                     int nom = ran.Next(1, array.Length + 1);
-                    bool isExist = false;
-                    for (int j = 0; j < i; j++)
-                    {
-                        if (array[j] == nom)
-                        {
-                            isExist = true;
-                            break;
-                        }
-                    }
-                    if (!isExist)
+                    if (!array.Contains(nom))
                     {
                         array[i] = nom;
                         break;
                     }
                 }
-
             }
         }
 
