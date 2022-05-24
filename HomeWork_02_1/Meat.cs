@@ -9,11 +9,13 @@ namespace NET_CAMP_HomeWork_s1_02_01
     public class Meat : Product
     {
         //Properties
+        //Ідентифікаторів є безліч!
         public Category Category { get; set; }
         public Kind Kind { get; }
 
         //Constructors
         //Свідомо не робив конструктор без параметрів, 3oоб захиститісь від створення об'ектів без ініціализованих обов`язкових полів\властивостей. Відкритий до дискусії стосовно цього.
+        //Погано для колекцій екземплярів
         public Meat(string name, Category category, Kind kind) : base(name)
         {
           this.Category = category;
@@ -52,7 +54,7 @@ namespace NET_CAMP_HomeWork_s1_02_01
         public override void SetPrice(float percent)
         {
             base.SetPrice(percent);
-
+//Не зовсім зрозуміла ідея
             this.Price = this.Price * (1 + ((float)this.Category) / 100);
         }
 
