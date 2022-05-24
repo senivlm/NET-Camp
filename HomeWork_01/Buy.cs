@@ -9,6 +9,7 @@ namespace NET_CAMP_HomeWork_s1_01
     public class Buy
     {
         //Fields
+        //треба колекцію
         private Product? productItem;
         private int volume;
 
@@ -19,6 +20,7 @@ namespace NET_CAMP_HomeWork_s1_01
             set
             {
                 this.productItem = value;
+                //Краще тут не викликати
                 CalculateBuying();
             }
         }
