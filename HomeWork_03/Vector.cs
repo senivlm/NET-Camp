@@ -54,18 +54,31 @@ namespace HomeWork_03
 
         public void InitShuffle()
         {
+            // variant 1
+            //Random ran = new();
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    while (true)
+            //    {
+            //        int nom = ran.Next(1, array.Length + 1);
+            //        if (!array.Contains(nom))
+            //        {
+            //            array[i] = nom;
+            //            break;
+            //        }
+            //    }
+            //}
+
+            // variant 2
             Random ran = new();
             for (int i = 0; i < array.Length; i++)
             {
-                while (true)
-                {
-                    int nom = ran.Next(1, array.Length + 1);
-                    if (!array.Contains(nom))
-                    {
-                        array[i] = nom;
-                        break;
-                    }
-                }
+                array[i] = i + 1;
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                int index = ran.Next(0, array.Length);
+                (array[i], array[index]) = (array[index], array[i]);
             }
         }
 
