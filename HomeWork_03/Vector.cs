@@ -147,26 +147,26 @@ namespace HomeWork_03
         public Pair[] CalculateSubSequences()
         {
 
-            int countLenght = 0;
+            int maxIndex = -1;
             Pair[] pairs = new Pair[array.Length];
 
             for (int i = 0; i < array.Length; i++)
             {
-                if (pairs[countLenght] == null)
+                if (maxIndex == -1)
                 {
-                    pairs[countLenght] = new(array[i], 1);
+                    pairs[++maxIndex] = new(array[i], 1);
                 }
-                else if (pairs[countLenght].Number != array[i])
+                else if (pairs[maxIndex].Number != array[i])
                 {
-                    pairs[++countLenght] = new(array[i], 1);
+                    pairs[++maxIndex] = new(array[i], 1);
                 }
                 else
                 {
-                    pairs[countLenght].Freq++;
+                    pairs[maxIndex].Freq++;
                 }
             }
 
-            Array.Resize(ref pairs, countLenght);
+            Array.Resize(ref pairs, maxIndex + 1);
 
             return pairs;
 
