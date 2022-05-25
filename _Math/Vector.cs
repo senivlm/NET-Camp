@@ -1,0 +1,281 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HomeWork_03
+{
+    internal class Vector
+    {
+        private readonly int[] array;
+
+        public int Lenght => array.Length;
+
+        public Vector(uint n)
+        {
+            if (n == 0)
+            {
+                throw new ArgumentException("Vector size is 0");
+            }
+            array = new int[n];
+        }
+
+        public int this[int index]
+        {
+            get
+            {
+                if (index >= array.Length)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                return array[index];
+            }
+            set
+            {
+                if (index >= array.Length)
+                {
+                    throw new IndexOutOfRangeException();
+                }
+                array[index] = value;
+            }
+
+
+        }
+
+        public void InitRandom(int a, int b)
+        {
+            Random ran = new();
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = ran.Next(a, b);
+            }
+        }
+
+        public void InitShuffle()
+        {
+            // variant 1
+            //Random ran = new();
+            //for (int i = 0; i < array.Length; i++)
+            //{
+            //    while (true)
+            //    {
+            //        int nom = ran.Next(1, array.Length + 1);
+            //        if (!array.Contains(nom))
+            //        {
+            //            array[i] = nom;
+            //            break;
+            //        }
+            //    }
+            //}
+
+            // variant 2
+            Random ran = new();
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = i + 1;
+            }
+            for (int i = 0; i < array.Length; i++)
+            {
+                int index = ran.Next(0, array.Length);
+                (array[i], array[index]) = (array[index], array[i]);
+            }
+        }
+
+        public bool IsPalindrome()
+        {
+            bool result = true;
+            for (int i = 0; i < array.Length/2 ; i++)
+            {
+                if (array[i] != array[array.Length - i - 1])
+                {
+                    result = false;
+                    break;
+                }
+            }
+            return result;
+        }
+
+        public void Reverse(ImplementationMethod method = ImplementationMethod.standart)
+        {
+            if (method == ImplementationMethod.standart)
+            {
+                Array.Reverse(array, 0, array.Length);
+            }
+            else
+            {
+                for (int i = 0; i < array.Length / 2; i++)
+                {
+                    int mirrorIndex = array.Length - i - 1;
+                    (array[i], array[mirrorIndex]) = (array[mirrorIndex], array[i]);
+                }
+            }
+        }
+
+        public Pair[] CalculateFreq()
+        {
+            int countLenght = 0;
+            Pair[] pairs = new Pair[array.Length];
+
+            //Objects pair are created on first use
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                bool isElement = false;
+                for (int j = 0; j < countLenght; j++)
+                {
+                    if (array[i] == pairs[j].Number)
+                    {
+                        pairs[j].Freq++;
+                        isElement = true;
+                        break;
+                    }
+
+                }
+                if (!isElement)
+                {
+                    pairs[countLenght] = new(array[i], 1);
+                    countLenght++;
+                }
+            }
+
+            Array.Resize(ref pairs, countLenght);
+
+            return pairs;
+        }
+
+        public Pair[] CalculateSubSequences()
+        {
+
+            int maxIndex = -1;
+            Pair[] pairs = new Pair[array.Length];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                if (maxIndex == -1)
+                {
+                    pairs[++maxIndex] = new(array[i], 1);
+                }
+                else if (pairs[maxIndex].Number != array[i])
+                {
+                    pairs[++maxIndex] = new(array[i], 1);
+                }
+                else
+                {
+                    pairs[maxIndex].Freq++;
+                }
+            }
+
+            Array.Resize(ref pairs, maxIndex + 1);
+
+            return pairs;
+
+        }
+
+        public Pair? GetLongestSubSequence()
+        {
+            
+            Pair[] pairs = CalculateSubSequences();
+
+            if (pairs.Length == 0)
+            {
+                return null;
+            }
+            
+            Pair resultPair = pairs[0];
+            
+            for (int i = 1; i < pairs.Length; i++)
+            {
+                if (pairs[i].Freq > resultPair.Freq)
+                {
+                    resultPair = pairs[i];
+                }
+
+            }
+
+            return resultPair;
+
+        }
+
+        public void SortBobble()
+        {
+            for (int i = 0; i < array.Length - 1; i++)
+            {
+                for (int j = 0; j < array.Length - 1 - i; j++)
+                {
+                    if (array[j] > array[j+1])
+                    {
+                        (array[j], array[j + 1]) = (array[j + 1], array[j]);
+                    }
+                }
+            }
+        }
+
+        public void SortCounting()
+        {
+            if (array.Length < 2)
+            {
+                return;
+            }
+
+            int maxValue = array[0];
+            int minValue = array[0];
+            for (int i = 1; i < array.Length; i++)
+            {
+                if (maxValue < array[i])
+                {
+                    maxValue = array[i];    
+                }
+                if (minValue > array[i])
+                {
+                    minValue = array[i];
+                }
+            }
+
+            int[] temp = new int[maxValue - minValue + 1];
+
+            for (int i = 0; i < array.Length; i++)
+            {
+                temp[array[i] - minValue]++;       
+            }
+
+            int k = 0;
+            for (int i = 0; i < temp.Length; i++)
+                for (int j = 0; j < temp[i]; j++)
+                {
+                    array[k++] = i + minValue;
+                }
+            {
+
+            }
+        }
+
+        public void SortQuick()
+        {
+
+
+        }
+
+
+        public override string? ToString()
+        {
+            string str = "";
+            for (int i = 0; i < array.Length; i++)
+            {
+                str += array[i] + " ";
+            }
+
+            return str;
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return base.Equals(obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
+    }
+}
