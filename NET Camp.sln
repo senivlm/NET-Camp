@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_InternetShop", "_InternetS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_Math", "_Math\_Math.csproj", "{7BF9D46A-2B0F-46BC-9DEF-07A936169D16}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork_04", "HomeWork04\HomeWork_04.csproj", "{CB38C639-FB11-4C99-9D3C-97E4E2423842}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeWork_04", "HomeWork_04\HomeWork_04.csproj", "{CB38C639-FB11-4C99-9D3C-97E4E2423842}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

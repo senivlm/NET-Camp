@@ -36,7 +36,7 @@ namespace HomeWork_04
             InitFix(arrIn);
         }
 
-        public Vector(Vector arrayIn) : this((arrayIn == null)?0:arrayIn.Lenght)
+        public Vector(Vector arrayIn) : this((arrayIn == null) ? 0 : arrayIn.Lenght)
         {
             if (arrayIn != null)
             {
@@ -82,12 +82,12 @@ namespace HomeWork_04
         }
 
         public override bool Equals(object? obj)
-        {   
+        {
             if (!(obj is Vector))
             {
                 return false;
             }
-            
+
             Vector tmp = (Vector)obj;
             if (this.Lenght != tmp.Lenght)
             {
@@ -153,7 +153,7 @@ namespace HomeWork_04
         public void InitFix(params int[] ListNumbers)
         {
             int indexFill = (array.Length < ListNumbers.Length) ? array.Length : ListNumbers.Length;
-            for(int i = 0; i < indexFill; i++)
+            for (int i = 0; i < indexFill; i++)
             {
                 array[i] = ListNumbers[i];
             }
@@ -161,6 +161,46 @@ namespace HomeWork_04
             {
                 array[i] = 0;
             }
+        }
+
+        public void InitFromString(string? str, string separator = " ")
+        {
+            int indexFill = 0;
+            if (str != null)
+            {
+                string[] masStr = str.Split(separator);
+                foreach (string s in masStr)
+                {
+                    if (indexFill >= array.Length)
+                    {
+                        break;
+                    }
+
+                    Int32.TryParse(s, out array[indexFill]);
+                    indexFill++;
+
+                }
+            }
+            for (int i = indexFill; i < array.Length; i++)
+            {
+                array[i] = 0;
+            }
+        }
+
+        public void InitFromFile(string fileName)
+        {
+            //if (!File.Exists(fileName))
+            //{
+            //    throw  new FileNotFoundException($"File {fileName} is absent");
+            //}
+
+            StreamReader stream = new(fileName);
+            string? line = stream.ReadLine();
+
+            InitFromString(line);
+
+            stream.Close();
+
         }
         #endregion
 
@@ -171,7 +211,7 @@ namespace HomeWork_04
             {
                 return;
             }
-            
+
             for (int i = 0; i < array.Length - 1; i++)
             {
                 for (int j = 0; j < array.Length - 1 - i; j++)
@@ -218,7 +258,7 @@ namespace HomeWork_04
             for (int i = 0; i < temp.Length; i++)
                 for (int j = 0; j < temp[i]; j++)
                 {
-                    int index = (direct == SortingDirection.ASC)? k : (temp.Length - k - 1);
+                    int index = (direct == SortingDirection.ASC) ? k : (temp.Length - k - 1);
                     array[index] = i + minValue;
                     k++;
                 }
@@ -226,7 +266,6 @@ namespace HomeWork_04
 
             }
         }
-
         public void SortQuick(SortingDirection direct = SortingDirection.ASC, TypeQuickSort typeQS = TypeQuickSort.CENTRUM)
         {
             if (array.Length < 2)
@@ -234,23 +273,23 @@ namespace HomeWork_04
                 return;
             }
 
-            quicksort(0, array.Length-1, direct, typeQS);
+            SortQuickInternal(0, array.Length - 1, direct, typeQS);
             return;
 
-            void quicksort(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
+            void SortQuickInternal(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
             {
                 if (low < high)
                 {
                     int p = partition(low, high, direct, typeQS);
                     if (typeQS == TypeQuickSort.RIGHT)
                     {
-                        quicksort(low, p - 1, direct, typeQS);
-                        quicksort(p, high, direct, typeQS);
+                        SortQuickInternal(low, p - 1, direct, typeQS);
+                        SortQuickInternal(p, high, direct, typeQS);
                     }
                     else
                     {
-                        quicksort(low, p, direct, typeQS);
-                        quicksort(p + 1, high, direct, typeQS);
+                        SortQuickInternal(low, p, direct, typeQS);
+                        SortQuickInternal(p + 1, high, direct, typeQS);
                     }
                 }
             }
@@ -258,7 +297,7 @@ namespace HomeWork_04
             int partition(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
             {
                 int indexPivot;
-                
+
                 if (typeQS == TypeQuickSort.LEFT)
                 {
                     indexPivot = low;
@@ -273,7 +312,7 @@ namespace HomeWork_04
                 }
 
                 NotifyStep?.Invoke($"Start partition. low={low} high={high} indexPivot={indexPivot}");
-               
+
                 int pivot = array[indexPivot];
                 int i = low;
                 int j = high;
@@ -303,13 +342,83 @@ namespace HomeWork_04
                 }
             }
         }
+
+        public void SortSplitMerge(SortingDirection direct)
+        {
+            if (array.Length < 2)
+            {
+                return;
+            }
+
+            SortSplitMergeInternal(0, array.Length - 1, direct);
+            return;
+
+            void SortSplitMergeInternal(int indexStart, int indexFinish, SortingDirection direct)
+            {
+
+                if (indexFinish <= indexStart)
+                {
+                    return;
+                }
+
+                int indexMidle = (indexStart + indexFinish) / 2;
+                SortSplitMergeInternal(indexStart, indexMidle, direct);
+                SortSplitMergeInternal(indexMidle + 1, indexFinish, direct);
+                Merge(indexStart, indexMidle, indexFinish, direct);
+
+            }
+
+            void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
+            {
+
+                int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+
+                int i = indexStart1;
+                int j = indexFinish1 + 1;
+
+                int indexArrTmp = 0;
+                while (i <= indexFinish1 && j <= indexFinish2)
+                {
+                    if ((array[i] <= array[j] && direct == SortingDirection.ASC)
+                        || (array[i] >= array[j] && direct == SortingDirection.DESC))
+                    {
+                        arrTmp[indexArrTmp++] = array[i++];
+                    }
+                    else
+                    {
+                        arrTmp[indexArrTmp++] = array[j++];
+                    }
+                }
+                while (i <= indexFinish1)
+                {
+                    arrTmp[indexArrTmp++] = array[i++];
+                }
+                while (j <= indexFinish2)
+                {
+                    arrTmp[indexArrTmp++] = array[j++];
+                }
+
+                for (int n = 0; n < arrTmp.Length; n++)
+                {
+                    array[indexStart1 + n] = arrTmp[n];
+                }
+                NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
+            }
+        }
+
+        public void SortHeap()
+        {
+
+        }
+
+
         #endregion
 
         #region other_methods
         public bool IsPalindrome()
         {
             bool result = true;
-            for (int i = 0; i < array.Length/2 ; i++)
+            for (int i = 0; i < array.Length / 2; i++)
             {
                 if (array[i] != array[array.Length - i - 1])
                 {
@@ -414,16 +523,16 @@ namespace HomeWork_04
 
         public Pair? GetLongestSubSequence()
         {
-            
+
             Pair[] pairs = CalculateSubSequences();
 
             if (pairs.Length == 0)
             {
                 return null;
             }
-            
+
             Pair resultPair = pairs[0];
-            
+
             for (int i = 1; i < pairs.Length; i++)
             {
                 if (pairs[i].Freq > resultPair.Freq)

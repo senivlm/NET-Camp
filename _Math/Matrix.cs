@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _Math
+namespace Math
 {
     public class Matrix
     {
@@ -50,8 +50,8 @@ namespace _Math
                     int y = j;
 
                     if (
-                        (i%2!=0 && direction == Direction.right)
-                        || (i%2==0 && direction == Direction.down)
+                        (i%2!=0 && direction == Direction.RIGHT)
+                        || (i%2==0 && direction == Direction.DOWN)
                         )
                     {
                         (x, y) = (y, x);

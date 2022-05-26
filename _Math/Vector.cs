@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _Math
+namespace Math
 {
     internal class Vector
     {
@@ -162,6 +162,46 @@ namespace _Math
                 array[i] = 0;
             }
         }
+
+        public void InitFromString(string? str, string separator = " ")
+        {
+            int indexFill = 0;
+            if (str != null)
+            {
+                string[] masStr = str.Split(separator);
+                foreach (string s in masStr)
+                {
+                    if (indexFill >= array.Length)
+                    {
+                        break;
+                    }
+
+                    Int32.TryParse(s, out array[indexFill]);
+                    indexFill++;
+
+                }
+            }
+            for (int i = indexFill; i < array.Length; i++)
+            {
+                array[i] = 0;
+            }
+        }
+
+        public void InitFromFile(string fileName)
+        {
+            //if (!File.Exists(fileName))
+            //{
+            //    throw  new FileNotFoundException($"File {fileName} is absent");
+            //}
+
+            StreamReader stream = new(fileName);
+            string? line = stream.ReadLine();
+
+            InitFromString(line);
+
+            stream.Close();
+
+        }
         #endregion
 
         #region sort_methods
@@ -226,7 +266,6 @@ namespace _Math
 
             }
         }
-
         public void SortQuick(SortingDirection direct = SortingDirection.ASC, TypeQuickSort typeQS = TypeQuickSort.CENTRUM)
         {
             if (array.Length < 2)
@@ -234,23 +273,23 @@ namespace _Math
                 return;
             }
 
-            quicksort(0, array.Length - 1, direct, typeQS);
+            SortQuickInternal(0, array.Length - 1, direct, typeQS);
             return;
 
-            void quicksort(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
+            void SortQuickInternal(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
             {
                 if (low < high)
                 {
                     int p = partition(low, high, direct, typeQS);
                     if (typeQS == TypeQuickSort.RIGHT)
                     {
-                        quicksort(low, p - 1, direct, typeQS);
-                        quicksort(p, high, direct, typeQS);
+                        SortQuickInternal(low, p - 1, direct, typeQS);
+                        SortQuickInternal(p, high, direct, typeQS);
                     }
                     else
                     {
-                        quicksort(low, p, direct, typeQS);
-                        quicksort(p + 1, high, direct, typeQS);
+                        SortQuickInternal(low, p, direct, typeQS);
+                        SortQuickInternal(p + 1, high, direct, typeQS);
                     }
                 }
             }
@@ -303,6 +342,76 @@ namespace _Math
                 }
             }
         }
+
+        public void SortSplitMerge(SortingDirection direct)
+        {
+            if (array.Length < 2)
+            {
+                return;
+            }
+
+            SortSplitMergeInternal(0, array.Length - 1, direct);
+            return;
+
+            void SortSplitMergeInternal(int indexStart, int indexFinish, SortingDirection direct)
+            {
+
+                if (indexFinish <= indexStart)
+                {
+                    return;
+                }
+
+                int indexMidle = (indexStart + indexFinish) / 2;
+                SortSplitMergeInternal(indexStart, indexMidle, direct);
+                SortSplitMergeInternal(indexMidle + 1, indexFinish, direct);
+                Merge(indexStart, indexMidle, indexFinish, direct);
+
+            }
+
+            void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
+            {
+
+                int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+
+                int i = indexStart1;
+                int j = indexFinish1+1;
+
+                int indexArrTmp = 0;
+                while (i <= indexFinish1 && j <= indexFinish2)
+                {
+                    if ((array[i] <= array[j] && direct == SortingDirection.ASC)
+                        || (array[i] >= array[j] && direct == SortingDirection.DESC))
+                    {
+                        arrTmp[indexArrTmp++] = array[i++];
+                    }
+                    else
+                    {
+                        arrTmp[indexArrTmp++] = array[j++];
+                    }
+                }
+                while (i <= indexFinish1)
+                {
+                    arrTmp[indexArrTmp++] = array[i++];
+                }
+                while (j <= indexFinish2)
+                {
+                    arrTmp[indexArrTmp++] = array[j++];
+                }
+
+                for (int n = 0; n < arrTmp.Length; n++)
+                {
+                    array[indexStart1 + n] = arrTmp[n];
+                }
+                NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
+            }
+        }
+
+        public void SortHeap()
+        {
+
+        }
+
+
         #endregion
 
         #region other_methods

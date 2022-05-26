@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace _Math
+namespace Math
 {
     public enum ImplementationMethod
     {
@@ -21,6 +21,13 @@ namespace _Math
     {
         LEFT,
         CENTRUM,
+        RIGHT
+    }
+    public enum Direction
+    {
+        UP,
+        DOWN,
+        LEFT,
         RIGHT
     }
 

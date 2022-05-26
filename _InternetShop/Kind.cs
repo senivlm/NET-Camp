@@ -1,5 +1,5 @@
 ﻿
-namespace _InternetShop
+namespace InternetShop
 {
     public enum Kind { 
         Mutton,

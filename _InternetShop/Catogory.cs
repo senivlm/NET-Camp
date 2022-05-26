@@ -1,4 +1,4 @@
-﻿namespace _InternetShop
+﻿namespace InternetShop
 {
     public enum Category {
         TopGrade = 1,

@@ -23,5 +23,12 @@ namespace HomeWork_04
         CENTRUM,
         RIGHT
     }
+    public enum Direction
+    {
+        UP,
+        DOWN,
+        LEFT,
+        RIGHT
+    }
 
 }
