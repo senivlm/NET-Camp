@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NET_CAMP_HomeWork_s1_02_01
+namespace _InternetShop
 {
     public class Dairy_products : Product
     {

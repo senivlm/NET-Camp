@@ -1,4 +1,4 @@
-﻿namespace NET_CAMP_HomeWork_s1_02_01
+﻿namespace _InternetShop
 {
     public enum Category {
         TopGrade = 1,
