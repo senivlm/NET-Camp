@@ -168,7 +168,7 @@ namespace Math
             int indexFill = 0;
             if (str != null)
             {
-                string[] masStr = str.Split(separator);
+                string[] masStr = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 foreach (string s in masStr)
                 {
                     if (indexFill >= array.Length)
@@ -189,17 +189,12 @@ namespace Math
 
         public void InitFromFile(string fileName)
         {
-            //if (!File.Exists(fileName))
-            //{
-            //    throw  new FileNotFoundException($"File {fileName} is absent");
-            //}
 
-            StreamReader stream = new(fileName);
-            string? line = stream.ReadLine();
-
-            InitFromString(line);
-
-            stream.Close();
+            using (StreamReader stream = new(fileName))
+            {
+                string? line = stream.ReadLine();
+                InitFromString(line);
+            }
 
         }
         #endregion
@@ -280,7 +275,7 @@ namespace Math
             {
                 if (low < high)
                 {
-                    int p = partition(low, high, direct, typeQS);
+                    int p = Partition(low, high, direct, typeQS);
                     if (typeQS == TypeQuickSort.RIGHT)
                     {
                         SortQuickInternal(low, p - 1, direct, typeQS);
@@ -294,7 +289,7 @@ namespace Math
                 }
             }
 
-            int partition(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
+            int Partition(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
             {
                 int indexPivot;
 
@@ -371,50 +366,115 @@ namespace Math
             void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
             {
 
-                int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+                //SerialStorage arrTmp = new(indexFinish2 - indexStart1 + 1);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+                SerialStorage arrTmp = new("arrTmp.txt");
 
                 int i = indexStart1;
                 int j = indexFinish1+1;
 
-                int indexArrTmp = 0;
+                //int indexArrTmp = 0;
                 while (i <= indexFinish1 && j <= indexFinish2)
                 {
                     if ((array[i] <= array[j] && direct == SortingDirection.ASC)
                         || (array[i] >= array[j] && direct == SortingDirection.DESC))
                     {
-                        arrTmp[indexArrTmp++] = array[i++];
+                        arrTmp.Add(array[i++]); // arrTmp[indexArrTmp++] = array[i++];
                     }
                     else
                     {
-                        arrTmp[indexArrTmp++] = array[j++];
+                        arrTmp.Add(array[j++]); // arrTmp[indexArrTmp++] = array[j++];
                     }
                 }
                 while (i <= indexFinish1)
                 {
-                    arrTmp[indexArrTmp++] = array[i++];
+                    arrTmp.Add(array[i++]); // arrTmp[indexArrTmp++] = array[i++];
                 }
                 while (j <= indexFinish2)
                 {
-                    arrTmp[indexArrTmp++] = array[j++];
+                    arrTmp.Add(array[j++]); // arrTmp[indexArrTmp++] = array[j++];
                 }
 
-                for (int n = 0; n < arrTmp.Length; n++)
-                {
-                    array[indexStart1 + n] = arrTmp[n];
-                }
+                arrTmp.ExportToArray(array, indexStart1); 
+                //for (int n = 0; n < arrTmp.Length; n++)
+                //{
+                //    array[indexStart1 + n] = arrTmp[n];
+                //}
                 NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
             }
         }
 
-        public void SortHeap()
+        public void SortHeap(SortingDirection direct)
         {
 
+            if (array.Length < 2)
+            {
+                return;
+            }
+            
+            //Create full binary tree
+            for (int i = array.Length / 2 - 1; i >= 0; i--)
+            {
+                UpdateTreeFromParent(array.Length, i, direct);
+            }
+
+            //Sort array
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                (array[0], array[i]) = (array[i], array[0]);
+                UpdateTreeFromParent(i, 0, direct);
+            }
+            return;
+        
+
+            void UpdateTreeFromParent(int sizeTree, int indexParent, SortingDirection direct)
+            {
+                NotifyStep?.Invoke($"{this.ToString()} n={sizeTree} i={indexParent}");
+
+                int indexTarget = indexParent;
+
+                int indexChildL = 2 * indexParent + 1; // left = 2*i + 1
+                int indexChildR = 2 * indexParent + 2; // right = 2*i + 2
+
+
+                if (indexChildL < sizeTree 
+                    && (direct == SortingDirection.ASC && array[indexChildL] > array[indexTarget]
+                        || direct == SortingDirection.DESC && array[indexChildL] < array[indexTarget])
+                    )
+                {
+                    indexTarget = indexChildL; 
+                }
+
+                if (indexChildR < sizeTree
+                    && (direct == SortingDirection.ASC && array[indexChildR] > array[indexTarget]
+                        || direct == SortingDirection.DESC && array[indexChildR] < array[indexTarget])
+                    )
+                {
+                    indexTarget = indexChildR;
+                }
+
+                if (indexTarget != indexParent)
+                {
+                    (array[indexTarget], array[indexParent]) = (array[indexParent], array[indexTarget]);
+                    UpdateTreeFromParent(sizeTree, indexTarget, direct);
+                }
+            }
         }
 
 
         #endregion
 
         #region other_methods
+
+        public void SaveToFile(string fileName)
+        {
+
+            using (StreamWriter stream = new(fileName))
+            {
+                stream.WriteLine(this.ToString());
+            }
+
+
+        }
         public bool IsPalindrome()
         {
             bool result = true;
