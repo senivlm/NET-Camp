@@ -365,9 +365,17 @@ namespace Math
 
             void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
             {
-
-                //SerialStorage arrTmp = new(indexFinish2 - indexStart1 + 1);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
-                SerialStorage arrTmp = new("arrTmp.txt");
+                SerialStorage arrTmp;
+               
+                int size = indexFinish2 - indexStart1 + 1;
+                if (size > array.Length / 2)
+                {
+                    arrTmp = new("arrTmp.txt");
+                }
+                else
+                {
+                    arrTmp = new(size);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+                }
 
                 int i = indexStart1;
                 int j = indexFinish1+1;
