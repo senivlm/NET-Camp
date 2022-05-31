@@ -29,13 +29,11 @@ namespace HomeWork_05
             }
             array = new int[n];
         }
-
         public Vector(params int[] arrIn) : this(arrIn.Length)
         {
             //I understand that Length=1 impossible because it will be other constructor
             InitFix(arrIn);
         }
-
         public Vector(Vector arrayIn) : this((arrayIn == null) ? 0 : arrayIn.Lenght)
         {
             if (arrayIn != null)
@@ -69,7 +67,7 @@ namespace HomeWork_05
             }
         }
         #endregion
-
+        
         #region overrided_methods
         public override string? ToString()
         {
@@ -80,7 +78,6 @@ namespace HomeWork_05
             }
             return sb.ToString();
         }
-
         public override bool Equals(object? obj)
         {
             if (!(obj is Vector))
@@ -103,7 +100,6 @@ namespace HomeWork_05
             }
             return true;
         }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -111,15 +107,6 @@ namespace HomeWork_05
         #endregion
 
         #region init_methods
-        public void InitRandom(int a, int b)
-        {
-            Random ran = new();
-            for (int i = 0; i < array.Length; i++)
-            {
-                array[i] = ran.Next(a, b);
-            }
-        }
-
         public void InitShuffle()
         {
             // variant 1 Extra random number generation
@@ -149,7 +136,6 @@ namespace HomeWork_05
                 (array[i], array[index]) = (array[index], array[i]);
             }
         }
-
         public void InitFix(params int[] ListNumbers)
         {
             int indexFill = (array.Length < ListNumbers.Length) ? array.Length : ListNumbers.Length;
@@ -162,7 +148,6 @@ namespace HomeWork_05
                 array[i] = 0;
             }
         }
-
         public void InitFromString(string? str, string separator = " ")
         {
             int indexFill = 0;
@@ -186,7 +171,6 @@ namespace HomeWork_05
                 array[i] = 0;
             }
         }
-
         public void InitFromFile(string fileName)
         {
 
@@ -200,7 +184,6 @@ namespace HomeWork_05
         #endregion
 
         #region sort_methods
-
         public void SortSplitMerge(SortingDirection direct)
         {
             if (array.Length < 2)
@@ -228,16 +211,16 @@ namespace HomeWork_05
 
             void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
             {
-                SerialStorage arrTmp;
+                ISerialStorage arrTmp;
                
                 int size = indexFinish2 - indexStart1 + 1;
                 if (size > array.Length / 2)
                 {
-                    arrTmp = new("arrTmp.txt");
+                    arrTmp = new SerialStorageFile("arrTmp.txt");
                 }
                 else
                 {
-                    arrTmp = new(size);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+                    arrTmp = new SerialStorageArray(size);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
                 }
 
                 int i = indexStart1;
@@ -273,7 +256,6 @@ namespace HomeWork_05
                 NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
             }
         }
-
         public void SortHeap(SortingDirection direct)
         {
 
@@ -330,10 +312,9 @@ namespace HomeWork_05
                 }
             }
         }
-
-
         #endregion
 
+        #region other_methods
         public void SaveToFile(string fileName)
         {
 
@@ -344,7 +325,6 @@ namespace HomeWork_05
 
 
         }
-
         public bool IsSorted(SortingDirection direct)
         {
             bool result = true;
@@ -359,5 +339,6 @@ namespace HomeWork_05
             }
             return result;
         }
+#endregion
     }
 }
