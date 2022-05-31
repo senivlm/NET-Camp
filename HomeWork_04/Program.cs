@@ -1,5 +1,6 @@
 ﻿using HomeWork_04;
-
+//Робота загалом дуже хороша!
+// Слід перехоплювати винятки.
 Vector vectorForTest6 = new(2, 1, 4, 4, 4, 4, 4, 4, 4, 5, 3);
 vectorForTest6.NotifyStep += Console.WriteLine;
 
