@@ -29,13 +29,11 @@ namespace Math
             }
             array = new int[n];
         }
-
         public Vector(params int[] arrIn) : this(arrIn.Length)
         {
             //I understand that Length=1 impossible because it will be other constructor
             InitFix(arrIn);
         }
-
         public Vector(Vector arrayIn) : this((arrayIn == null) ? 0 : arrayIn.Lenght)
         {
             if (arrayIn != null)
@@ -69,7 +67,7 @@ namespace Math
             }
         }
         #endregion
-
+        
         #region overrided_methods
         public override string? ToString()
         {
@@ -80,7 +78,6 @@ namespace Math
             }
             return sb.ToString();
         }
-
         public override bool Equals(object? obj)
         {
             if (!(obj is Vector))
@@ -103,7 +100,6 @@ namespace Math
             }
             return true;
         }
-
         public override int GetHashCode()
         {
             return base.GetHashCode();
@@ -119,7 +115,6 @@ namespace Math
                 array[i] = ran.Next(a, b);
             }
         }
-
         public void InitShuffle()
         {
             // variant 1 Extra random number generation
@@ -149,7 +144,6 @@ namespace Math
                 (array[i], array[index]) = (array[index], array[i]);
             }
         }
-
         public void InitFix(params int[] ListNumbers)
         {
             int indexFill = (array.Length < ListNumbers.Length) ? array.Length : ListNumbers.Length;
@@ -162,7 +156,6 @@ namespace Math
                 array[i] = 0;
             }
         }
-
         public void InitFromString(string? str, string separator = " ")
         {
             int indexFill = 0;
@@ -186,7 +179,6 @@ namespace Math
                 array[i] = 0;
             }
         }
-
         public void InitFromFile(string fileName)
         {
 
@@ -220,7 +212,6 @@ namespace Math
                 }
             }
         }
-
         public void SortCounting(SortingDirection direct = SortingDirection.ASC)
         {
             if (array.Length < 2)
@@ -337,7 +328,6 @@ namespace Math
                 }
             }
         }
-
         public void SortSplitMerge(SortingDirection direct)
         {
             if (array.Length < 2)
@@ -365,16 +355,16 @@ namespace Math
 
             void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
             {
-                SerialStorage arrTmp;
+                ISerialStorage arrTmp;
                
                 int size = indexFinish2 - indexStart1 + 1;
                 if (size > array.Length / 2)
                 {
-                    arrTmp = new("arrTmp.txt");
+                    arrTmp = new SerialStorageFile("arrTmp.txt");
                 }
                 else
                 {
-                    arrTmp = new(size);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
+                    arrTmp = new SerialStorageArray(size);// int[] arrTmp = new int[indexFinish2 - indexStart1 + 1];
                 }
 
                 int i = indexStart1;
@@ -410,7 +400,6 @@ namespace Math
                 NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
             }
         }
-
         public void SortHeap(SortingDirection direct)
         {
 
@@ -467,12 +456,9 @@ namespace Math
                 }
             }
         }
-
-
         #endregion
 
         #region other_methods
-
         public void SaveToFile(string fileName)
         {
 
@@ -496,7 +482,6 @@ namespace Math
             }
             return result;
         }
-
         public bool IsSorted(SortingDirection direct)
         {
             bool result = true;
@@ -511,8 +496,6 @@ namespace Math
             }
             return result;
         }
-
-
         public void Reverse(ImplementationMethod method = ImplementationMethod.STANDART)
         {
             if (method == ImplementationMethod.STANDART)
@@ -528,7 +511,6 @@ namespace Math
                 }
             }
         }
-
         public Pair[] CalculateFreq()
         {
             int countLenght = 0;
@@ -560,7 +542,6 @@ namespace Math
 
             return pairs;
         }
-
         public Pair[] CalculateSubSequences()
         {
 
@@ -588,7 +569,6 @@ namespace Math
             return pairs;
 
         }
-
         public Pair? GetLongestSubSequence()
         {
 
