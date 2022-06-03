@@ -8,7 +8,7 @@ namespace HomeWork_06_1
 {
     public abstract class RowData
     {
-        //TODO This does not work. 
+        //TODO Since the static field is not inherited, then change it to a dictionary with the key Object Type. 
         private protected static Storage<RowData> storage = new();
 
         public RowData() 
