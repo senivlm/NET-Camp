@@ -51,7 +51,7 @@ namespace HomeWork_05
         {
             get
             {
-                if (index >= array.Length)
+                if (index >= array.Length || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -59,7 +59,7 @@ namespace HomeWork_05
             }
             set
             {
-                if (index >= array.Length)
+                if (index >= array.Length || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }

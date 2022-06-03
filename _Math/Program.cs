@@ -1,20 +1,29 @@
 ﻿using Math;
 
-
-
-Matrix matr = new(15, 6);
-//matr.InitRandom(1,9);
-
-//using(StreamWriter stream = new StreamWriter("matrix.txt"))
-//{
-//    matr.SaveToStream(stream);
-//}
-
-using (StreamReader stream = new StreamReader("matrix.txt"))
+Vector ver = new Vector(3);
+try
 {
-    matr.InitFronStream(stream);
+    Console.WriteLine(ver[10]);
 }
-Console.WriteLine(matr.ToString());
+catch (Exception e)
+{
+    Console.WriteLine(e.Message);
+}
+
+
+//Matrix matr = new(15, 6);
+////matr.InitRandom(1,9);
+
+////using(StreamWriter stream = new StreamWriter("matrix.txt"))
+////{
+////    matr.SaveToStream(stream);
+////}
+
+//using (StreamReader stream = new StreamReader("matrix.txt"))
+//{
+//    matr.InitFronStream(stream);
+//}
+//Console.WriteLine(matr.ToString());
 
 
 //Vector vec = new(15);

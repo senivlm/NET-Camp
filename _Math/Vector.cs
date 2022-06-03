@@ -51,7 +51,7 @@ namespace Math
         {
             get
             {
-                if (index >= array.Length)
+                if (index >= array.Length || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -59,7 +59,7 @@ namespace Math
             }
             set
             {
-                if (index >= array.Length)
+                if (index >= array.Length || index < 0)
                 {
                     throw new IndexOutOfRangeException();
                 }
