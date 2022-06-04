@@ -112,43 +112,10 @@ namespace HomeWork_07_1
                 {
                     string curString = reader.ReadLine();
 
-                    string[] arrString = curString.Split(" ", StringSplitOptions.RemoveEmptyEntries);
-                    
-                    if (arrString.Length != 3)
+                    if (curString != null && !ReadProductsFromString(curString))
                     {
-                        LoggerErrorAdd?.Invoke($"Incorrect number of fields> {curString}");
                         continue;
                     }
-
-                    StringBuilder sb = new();
-
-                    //Price
-                    float price;
-                    if (!float.TryParse(arrString[1], out price))
-                    {
-                        sb.Append("field Price,");
-                    }
-
-                    //Weight
-                    float weight;
-                    if (!float.TryParse(arrString[2], out weight))
-                    {
-                        sb.Append("field Weight,");
-                    }
-
-                    if (sb.Length > 0)
-                    {
-                        sb.Insert(0, "Incorrect ");
-                        LoggerErrorAdd?.Invoke($"{sb.ToString()}> {curString}");
-                        continue;
-                    }
-
-                    //Name
-                    string name = curString[0].ToString().ToUpper() + curString.Substring(1);
-
-                    Add(new Product(name, price, weight));
-                    LoggerSuccessAdd?.Invoke($"add> {curString}");
-
                 }
 
                 catch (Exception ex)
@@ -158,6 +125,48 @@ namespace HomeWork_07_1
                 }
             }
 
+        }
+
+        public bool ReadProductsFromString(string curString)
+        {
+            string[] arrString = curString.Split(" ", StringSplitOptions.RemoveEmptyEntries);
+
+            if (arrString.Length != 3)
+            {
+                LoggerErrorAdd?.Invoke($"Incorrect number of fields> {curString}");
+                return false;
+            }
+
+            StringBuilder sb = new();
+
+            //Price
+            float price;
+            if (!float.TryParse(arrString[1], out price))
+            {
+                sb.Append("field Price,");
+            }
+
+            //Weight
+            float weight;
+            if (!float.TryParse(arrString[2], out weight))
+            {
+                sb.Append("field Weight,");
+            }
+
+            if (sb.Length > 0)
+            {
+                sb.Insert(0, "Incorrect ");
+                LoggerErrorAdd?.Invoke($"{sb.ToString()}> {curString}");
+                return false;
+            }
+
+            //Name
+            string name = curString[0].ToString().ToUpper() + curString.Substring(1);
+
+            Add(new Product(name, price, weight));
+            LoggerSuccessAdd?.Invoke($"add> {curString}");
+
+            return true;
         }
 
 
