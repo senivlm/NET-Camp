@@ -46,7 +46,7 @@ namespace HomeWork_05
         }
         #endregion
 
-        #region indexers
+        #region indexes
         public int this[int index]
         {
             get
