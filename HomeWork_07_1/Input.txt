@@ -1,0 +1,5 @@
+﻿apple 23 54,2
+apple2 43 53,2
+milk 3j 43
+fdf
+apple5 41 3,2
