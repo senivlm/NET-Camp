@@ -80,9 +80,11 @@ namespace HomeWork_07_1
                             continue;
                         }
 
-                        ExtDisplayAction?.Invoke(line);
+                        if (dateLog >= date)
+                        {
+                            ExtDisplayAction?.Invoke(line);
+                        }
                     }
-
                 }
             }
             catch (Exception ex)
