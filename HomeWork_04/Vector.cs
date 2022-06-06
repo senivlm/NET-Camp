@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace HomeWork_04
 {
     internal class Vector
-    {
+    {// Ваш номер в списку 51. 
+        // Помітно, що Ви багато працювали і оптимізовували код. Так тримати!
         #region fields
         private readonly int[] array;
         #endregion
@@ -17,6 +18,7 @@ namespace HomeWork_04
         #endregion
 
         #region events
+        // Тут можна дійсно застосовувати події. І у нас буде така задача. Події є більш спеціалізованим інструментом. І треба тонко відчувати винятки і події.
         public event Action<string>? NotifyStep;
         #endregion
 
