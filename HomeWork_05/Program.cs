@@ -1,5 +1,5 @@
 ﻿using HomeWork_05;
-
+// При виклику Merge  у Вас є перевищення ліміту пам'яті.
 //Підготовка файлу
 string nameFile = "arrayHW_05.txt";
 Vector vec1 = new(15);
