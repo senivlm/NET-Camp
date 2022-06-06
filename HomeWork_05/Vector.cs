@@ -193,7 +193,7 @@ namespace HomeWork_05
 
             SortSplitMergeInternal(0, array.Length - 1, direct);
             return;
-
+// Краще явно вказувати специфікатор доступу
             void SortSplitMergeInternal(int indexStart, int indexFinish, SortingDirection direct)
             {
 
@@ -326,7 +326,7 @@ namespace HomeWork_05
 
         }
         public bool IsSorted(SortingDirection direct)
-        {
+        {// Елегантніше через передачу компаратора
             bool result = true;
             for (int i = 0; i < array.Length - 1; i++)
             {
