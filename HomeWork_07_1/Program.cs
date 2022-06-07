@@ -9,19 +9,29 @@
 
 using HomeWork_07_1;
 
+//Логгер помилок
 Logger loggerError = new("..\\..\\..\\LogError.log");
 loggerError.ExtDisplayAction = Console.WriteLine;
 
+//Логгер успіху
 Logger loggerSuccess = new("..\\..\\..\\LogSuccess.log");
 loggerSuccess.ExtDisplayAction = Console.WriteLine;
 
+//Сховище
 Storage storage = new Storage(20);
 storage.ExtDisplayAction = Console.WriteLine;
 storage.ExtInputAction = Console.ReadLine;
 storage.LoggerErrorAdd += loggerError.Add;
 storage.LoggerSuccessAdd += loggerSuccess.Add;
 
+//Читання з файлу
 storage.ReadProductsFromFile("..\\..\\..\\", "Input.txt");
 storage.ShowAll();
 
+//Вивід помилок на екран
+loggerError.ExtDisplayAction = Console.WriteLine; 
 loggerError.ShowLog(new DateTime(2022,01,01));
+
+//Надання користовачеві ввести дані повторно
+loggerError.ExtDisplayAction = storage.RepeatReadFromString;
+loggerError.ShowLog(new DateTime(2022, 01, 01));

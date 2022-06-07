@@ -169,6 +169,20 @@ namespace HomeWork_07_1
             return true;
         }
 
+        public void RepeatReadFromString(string str)
+        {
+            Console.WriteLine("Line with error:");
+            Console.WriteLine(str);
+            Console.WriteLine("Input correct line:");
+
+            string? strInput = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(strInput))
+            {
+                ReadProductsFromString(strInput);
+            }
+
+        }
+
 
         public bool Add(Product prod)
         {
