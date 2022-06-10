@@ -104,6 +104,64 @@ namespace Math
         {
             return base.GetHashCode();
         }
+        //public static int operator +(Vector a, Vector b)
+        //{
+        //    return a.Sum() + b.Sum();
+        //}
+        public static Vector operator+(Vector a, Vector b)
+        {
+            int lengtRes = (a.Lenght > b.Lenght) ? a.Lenght : b.Lenght;
+            Vector c = new(lengtRes);
+            for (int i = 0; i < a.Lenght; i++)
+            {
+                c[i] = a[i];
+            }
+            for (int i = 0; i < b.Lenght; i++)
+            {
+                c[i] += b[i];
+            }
+            return c;
+        }
+        public static Vector operator+(Vector a, int n)
+        {
+            Vector c = new(a.Lenght);
+            for (int i = 0; i < a.Lenght; i++)
+            {
+                c[i] = a[i] + n;
+            }
+            return c;
+        }
+        public static bool operator >(Vector a, Vector b)
+        {
+            return (a.Lenght > b.Lenght);
+        }
+        public static bool operator <(Vector a, Vector b)
+        {
+            return (a.Lenght < b.Lenght);
+        }
+        
+        public static explicit operator int(Vector a)
+        {
+            if (a.Lenght == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return a[0];
+            }
+        }
+        
+        public static implicit operator Vector(int t)
+        {
+            Vector b = new(1);
+            b[0] = t;
+            return b;
+        }
+
+
+
+
         #endregion
 
         #region init_methods
@@ -592,6 +650,16 @@ namespace Math
 
             return resultPair;
 
+        }
+        public int Sum()
+        {
+            int sum = 0;
+            for(int i = 0; i <= array.Length; i++)
+            {
+                sum += array[i];
+
+            }
+            return sum;
         }
         #endregion
     }
