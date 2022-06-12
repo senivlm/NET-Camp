@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 
 namespace Math
 {
-    internal class Vector
+    internal class Vector : IEnumerable
     {
         #region fields
         private readonly int[] array;
@@ -67,7 +63,7 @@ namespace Math
             }
         }
         #endregion
-        
+
         #region overrided_methods
         public override string? ToString()
         {
@@ -108,7 +104,7 @@ namespace Math
         //{
         //    return a.Sum() + b.Sum();
         //}
-        public static Vector operator+(Vector a, Vector b)
+        public static Vector operator +(Vector a, Vector b)
         {
             int lengtRes = (a.Lenght > b.Lenght) ? a.Lenght : b.Lenght;
             Vector c = new(lengtRes);
@@ -122,7 +118,7 @@ namespace Math
             }
             return c;
         }
-        public static Vector operator+(Vector a, int n)
+        public static Vector operator +(Vector a, int n)
         {
             Vector c = new(a.Lenght);
             for (int i = 0; i < a.Lenght; i++)
@@ -158,10 +154,10 @@ namespace Math
             b[0] = t;
             return b;
         }
-
-
-
-
+        public IEnumerator GetEnumerator()
+        {
+            return array.GetEnumerator();
+        }
         #endregion
 
         #region init_methods
@@ -250,7 +246,7 @@ namespace Math
         #endregion
 
         #region sort_methods
-        public void SortBobble(SortingDirection direct = SortingDirection.ASC)
+        public void SortBobble(IComparer<int> comparer)
         {
             if (array.Length < 2)
             {
@@ -261,8 +257,7 @@ namespace Math
             {
                 for (int j = 0; j < array.Length - 1 - i; j++)
                 {
-                    if (((array[j] > array[j + 1]) && (direct == SortingDirection.ASC))
-                        || ((array[j] < array[j + 1]) && (direct == SortingDirection.DESC)))
+                    if (comparer.Compare(array[j], array[j + 1]) > 0)
                     {
                         (array[j], array[j + 1]) = (array[j + 1], array[j]);
                         NotifyStep?.Invoke(this.ToString() ?? "");
@@ -310,35 +305,35 @@ namespace Math
 
             }
         }
-        public void SortQuick(SortingDirection direct = SortingDirection.ASC, TypeQuickSort typeQS = TypeQuickSort.CENTRUM)
+        public void SortQuick(IComparer<int> comparer, TypeQuickSort typeQS = TypeQuickSort.CENTRUM)
         {
             if (array.Length < 2)
             {
                 return;
             }
 
-            SortQuickInternal(0, array.Length - 1, direct, typeQS);
+            SortQuickInternal(0, array.Length - 1, comparer, typeQS);
             return;
 
-            void SortQuickInternal(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
+            void SortQuickInternal(int low, int high, IComparer<int> comparer, TypeQuickSort typeQS)
             {
                 if (low < high)
                 {
-                    int p = Partition(low, high, direct, typeQS);
+                    int p = Partition(low, high, comparer, typeQS);
                     if (typeQS == TypeQuickSort.RIGHT)
                     {
-                        SortQuickInternal(low, p - 1, direct, typeQS);
-                        SortQuickInternal(p, high, direct, typeQS);
+                        SortQuickInternal(low, p - 1, comparer, typeQS);
+                        SortQuickInternal(p, high, comparer, typeQS);
                     }
                     else
                     {
-                        SortQuickInternal(low, p, direct, typeQS);
-                        SortQuickInternal(p + 1, high, direct, typeQS);
+                        SortQuickInternal(low, p, comparer, typeQS);
+                        SortQuickInternal(p + 1, high, comparer, typeQS);
                     }
                 }
             }
 
-            int Partition(int low, int high, SortingDirection direct, TypeQuickSort typeQS)
+            int Partition(int low, int high, IComparer<int> comparer, TypeQuickSort typeQS)
             {
                 int indexPivot;
 
@@ -362,16 +357,18 @@ namespace Math
                 int j = high;
                 while (true)
                 {
-                    if (direct == SortingDirection.ASC)
-                    {
-                        while (array[i] < pivot) i++;
-                        while (array[j] > pivot) j--;
-                    }
-                    else
-                    {
-                        while (array[i] > pivot) i++;
-                        while (array[j] < pivot) j--;
-                    }
+                    while (comparer.Compare(array[i], pivot) < 0) i++; //пока array[i] корректно расположен левее pivot
+                    while (comparer.Compare(array[j], pivot) > 0) j--; //пока array[j] корректно расположен правее pivot
+                    //if (direct == SortingDirection.ASC)
+                    //{
+                    //    while (array[i] < pivot) i++;
+                    //    while (array[j] > pivot) j--;
+                    //}
+                    //else
+                    //{
+                    //    while (array[i] > pivot) i++;
+                    //    while (array[j] < pivot) j--;
+                    //}
 
                     if (i >= j)
                     {
@@ -386,17 +383,17 @@ namespace Math
                 }
             }
         }
-        public void SortSplitMerge(SortingDirection direct)
+        public void SortSplitMerge(IComparer<int> comparer)
         {
             if (array.Length < 2)
             {
                 return;
             }
 
-            SortSplitMergeInternal(0, array.Length - 1, direct);
+            SortSplitMergeInternal(0, array.Length - 1, comparer);
             return;
 
-            void SortSplitMergeInternal(int indexStart, int indexFinish, SortingDirection direct)
+            void SortSplitMergeInternal(int indexStart, int indexFinish, IComparer<int> comparer)
             {
 
                 if (indexFinish <= indexStart)
@@ -405,13 +402,13 @@ namespace Math
                 }
 
                 int indexMidle = (indexStart + indexFinish) / 2;
-                SortSplitMergeInternal(indexStart, indexMidle, direct);
-                SortSplitMergeInternal(indexMidle + 1, indexFinish, direct);
-                Merge(indexStart, indexMidle, indexFinish, direct);
+                SortSplitMergeInternal(indexStart, indexMidle, comparer);
+                SortSplitMergeInternal(indexMidle + 1, indexFinish, comparer);
+                Merge(indexStart, indexMidle, indexFinish, comparer);
 
             }
 
-            void Merge(int indexStart1, int indexFinish1, int indexFinish2, SortingDirection direct)
+            void Merge(int indexStart1, int indexFinish1, int indexFinish2, IComparer<int> comparer)
             {
                 ISerialStorage arrTmp;
                
@@ -431,8 +428,7 @@ namespace Math
                 //int indexArrTmp = 0;
                 while (i <= indexFinish1 && j <= indexFinish2)
                 {
-                    if ((array[i] <= array[j] && direct == SortingDirection.ASC)
-                        || (array[i] >= array[j] && direct == SortingDirection.DESC))
+                    if (comparer.Compare(array[j], array[i]) > 0)
                     {
                         arrTmp.Add(array[i++]); // arrTmp[indexArrTmp++] = array[i++];
                     }
@@ -458,7 +454,7 @@ namespace Math
                 NotifyStep?.Invoke($"{this.ToString()} l={indexStart1} q={indexFinish1} r={indexFinish2}");
             }
         }
-        public void SortHeap(SortingDirection direct)
+        public void SortHeap(IComparer<int> comparer)
         {
 
             if (array.Length < 2)
@@ -469,19 +465,19 @@ namespace Math
             //Create full binary tree
             for (int i = array.Length / 2 - 1; i >= 0; i--)
             {
-                UpdateTreeFromParent(array.Length, i, direct);
+                UpdateTreeFromParent(array.Length, i, comparer);
             }
 
             //Sort array
             for (int i = array.Length - 1; i >= 0; i--)
             {
                 (array[0], array[i]) = (array[i], array[0]);
-                UpdateTreeFromParent(i, 0, direct);
+                UpdateTreeFromParent(i, 0, comparer);
             }
             return;
         
 
-            void UpdateTreeFromParent(int sizeTree, int indexParent, SortingDirection direct)
+            void UpdateTreeFromParent(int sizeTree, int indexParent, IComparer<int> comparer)
             {
                 NotifyStep?.Invoke($"{this.ToString()} n={sizeTree} i={indexParent}");
 
@@ -492,16 +488,14 @@ namespace Math
 
 
                 if (indexChildL < sizeTree 
-                    && (direct == SortingDirection.ASC && array[indexChildL] > array[indexTarget]
-                        || direct == SortingDirection.DESC && array[indexChildL] < array[indexTarget])
+                    && comparer.Compare(array[indexChildL], array[indexTarget]) > 0
                     )
                 {
                     indexTarget = indexChildL; 
                 }
 
                 if (indexChildR < sizeTree
-                    && (direct == SortingDirection.ASC && array[indexChildR] > array[indexTarget]
-                        || direct == SortingDirection.DESC && array[indexChildR] < array[indexTarget])
+                    && comparer.Compare(array[indexChildR], array[indexTarget]) > 0
                     )
                 {
                     indexTarget = indexChildR;
@@ -510,7 +504,7 @@ namespace Math
                 if (indexTarget != indexParent)
                 {
                     (array[indexTarget], array[indexParent]) = (array[indexParent], array[indexTarget]);
-                    UpdateTreeFromParent(sizeTree, indexTarget, direct);
+                    UpdateTreeFromParent(sizeTree, indexTarget, comparer);
                 }
             }
         }
@@ -661,6 +655,8 @@ namespace Math
             }
             return sum;
         }
+
+
         #endregion
     }
 }
