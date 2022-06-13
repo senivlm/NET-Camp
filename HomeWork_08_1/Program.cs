@@ -46,14 +46,14 @@ storageB.ReadProductsFromFile("..\\..\\..\\", "Input2.txt");
 storageA.ShowAll("storageA");
 storageB.ShowAll("storageB");
 
-//1. Товари є в першому складі і немає в другому.
+//1. Обїеднання складів (унікальні)
 Storage storage1 = storageA + storageB;
 storage1.ShowAll("storage1 = storageA + storageB");
 
-//2. Товари, які  є спільними в обох складах.
+//2. Те шо є на першому і нема на другому (унікальні)
 Storage storage2 = storageA - storageB;
 storage2.ShowAll("storage2 = storageA - storageB");
 
-//3. Спільний список товарів, які є на обох складах, без повторів елементів.
+//3. Те шо є і там і там (унікальні)
 Storage storage3 = storageA & storageB;
 storage3.ShowAll("storage3 = storageA & storageB");
