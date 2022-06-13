@@ -1,0 +1,85 @@
+06.13.2022 13:33> 
+06.13.2022 13:33> storageA
+06.13.2022 13:33> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> 
+06.13.2022 13:33> storageA.Except(storageB)
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> 
+06.13.2022 13:33> storageA.Intersect(storageB)
+06.13.2022 13:33> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> 
+06.13.2022 13:33> storage3 = storageA & storageB
+06.13.2022 13:33> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 13:33> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> 
+06.13.2022 14:06> storageA
+06.13.2022 14:06> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> 
+06.13.2022 14:06> storage1 = storageA + storageB
+06.13.2022 14:06> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple1 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple4 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> 
+06.13.2022 14:06> storage2 = storageA - storageB
+06.13.2022 14:06> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> 
+06.13.2022 14:06> storage3 = storageA & storageB
+06.13.2022 14:06> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:06> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> 
+06.13.2022 14:07> storageA
+06.13.2022 14:07> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> 
+06.13.2022 14:07> storage1 = storageA + storageB
+06.13.2022 14:07> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple1 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple4 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> 
+06.13.2022 14:07> storage2 = storageA - storageB
+06.13.2022 14:07> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> 
+06.13.2022 14:07> storage3 = storageA & storageB
+06.13.2022 14:07> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:07> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> 
+06.13.2022 14:08> storageA
+06.13.2022 14:08> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> 
+06.13.2022 14:08> storage1 = storageA + storageB
+06.13.2022 14:08> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple3 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple1 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple4 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> 
+06.13.2022 14:08> storage2 = storageA - storageB
+06.13.2022 14:08> Product name=Apple5 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> 
+06.13.2022 14:08> storage3 = storageA & storageB
+06.13.2022 14:08> Product name=Apple2 23 54,2 price=23 weight=54,2
+06.13.2022 14:08> Product name=Apple3 23 54,2 price=23 weight=54,2
