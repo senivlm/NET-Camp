@@ -1,0 +1,8 @@
+﻿apple2 23 54,2
+apple3 23 54,2
+apple3 23 54,2
+apple3 23 54,2
+apple3 23 54,2
+apple3 23 54,2
+apple5 23 54,2
+apple5 23 54,2
