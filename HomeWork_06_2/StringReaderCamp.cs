@@ -69,7 +69,7 @@ namespace HomeWork_06_2
 
                             //До першого додаємо currentLine
                             currentLine = (string.IsNullOrEmpty(currentLine)) ? subLine[0] : $"{currentLine} {subLine[0]}";
-
+// Алгоритмічно є п питання!
                             if (subLine.Length > 1)
                             {
                                 //Нульовий у currentLine, а останній обходимо, а ле у файл не пишемо, а запам'ятовуемо у currentLine
