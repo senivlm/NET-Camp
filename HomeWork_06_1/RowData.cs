@@ -5,14 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeWork_06_1
-{
+{//Назва класу мені  не подобається
     public abstract class RowData
     {
         //TODO Since the static field is not inherited, then change it to a dictionary with the key Object Type. 
         private protected static Storage<RowData> storage = new();
 
         public RowData() 
-        {
+        {//завдання  конструктора - створювати. Він перший, тому немає що очищати.
             Clean();
         }
         public RowData(string str) : this()
