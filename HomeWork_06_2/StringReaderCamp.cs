@@ -67,20 +67,24 @@ namespace HomeWork_06_2
                         {
                             string[] subLine = lastLineRead.Split(".", StringSplitOptions.TrimEntries);
 
-                            //До першого додаємо currentLine
+                            //У currentLine в минулої ітерації циклу прийходить початок незавершенного речення.
+                            //до нього додаємо  subLine[0] як його продовження
                             currentLine = (string.IsNullOrEmpty(currentLine)) ? subLine[0] : $"{currentLine} {subLine[0]}";
 
+                            //Якшо subLine має больше 1 єлементу, то в прочинаному lastLineRead є кінець речення и можно його записати у result 
                             if (subLine.Length > 1)
                             {
                                 //Нульовий у currentLine, а останній обходимо, а ле у файл не пишемо, а запам'ятовуемо у currentLine
                                 for (int i = 1; i < subLine.Length; i++)
                                 {
                                     result.Add(currentLine);
+                                    //У currentLine кладемо початок наступного речення
                                     currentLine = subLine[i];
                                 }
                             }
                         }
                     }
+                    //Якшщо у currentLine шось залишилось, то вважаемо це окремим реченням яке було без крапки и записуємо його
                     if (!string.IsNullOrEmpty(currentLine)) 
                     {
                         result.Add(currentLine);
