@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace HomeWork_06_1
-{
+{// рівень абстракції - добре. Але є нюанси щодо узагальнення. Коли будемо вивчати, я зверну увагу.
     public class Storage<T> where T : RowData//, new()
     {
         #region fields
