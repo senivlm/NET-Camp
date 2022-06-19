@@ -1,0 +1,11 @@
+﻿Dish1
+Ingredient1, 12,4
+Ingredient2, 1,4
+
+Dish2
+Ingredient3, 12,5
+Ingredient4, 1,3
+
+Dish3
+Ingredient5, 2,3
+Ingredient6, 5,3
