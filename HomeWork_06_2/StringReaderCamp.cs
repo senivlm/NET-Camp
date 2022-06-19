@@ -59,7 +59,7 @@ namespace HomeWork_06_2
             {
                 using (StreamReader sr = new StreamReader(FileName))
                 { 
-                    string currentLine = "";
+                    string currentSentence = "";
                     while (!sr.EndOfStream)
                     {
                         string? lastLineRead = sr.ReadLine();
@@ -69,7 +69,7 @@ namespace HomeWork_06_2
 
                             //У currentLine в минулої ітерації циклу прийходить початок незавершенного речення.
                             //до нього додаємо  subLine[0] як його продовження
-                            currentLine = (string.IsNullOrEmpty(currentLine)) ? subLine[0] : $"{currentLine} {subLine[0]}";
+                            currentSentence = string.IsNullOrEmpty(currentSentence) ? subLine[0] : $"{currentSentence} {subLine[0]}";
 
                             //Якшо subLine має больше 1 єлементу, то в прочинаному lastLineRead є кінець речення и можно його записати у result 
                             if (subLine.Length > 1)
@@ -77,17 +77,17 @@ namespace HomeWork_06_2
                                 //Нульовий у currentLine, а останній обходимо, а ле у файл не пишемо, а запам'ятовуемо у currentLine
                                 for (int i = 1; i < subLine.Length; i++)
                                 {
-                                    result.Add(currentLine);
+                                    result.Add(currentSentence);
                                     //У currentLine кладемо початок наступного речення
-                                    currentLine = subLine[i];
+                                    currentSentence = subLine[i];
                                 }
                             }
                         }
                     }
                     //Якшщо у currentLine шось залишилось, то вважаемо це окремим реченням яке було без крапки и записуємо його
-                    if (!string.IsNullOrEmpty(currentLine)) 
+                    if (!string.IsNullOrEmpty(currentSentence)) 
                     {
-                        result.Add(currentLine);
+                        result.Add(currentSentence);
                     }
 
                 }
