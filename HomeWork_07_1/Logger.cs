@@ -63,7 +63,7 @@ namespace HomeWork_07_1
             try
             {
                 using (StreamReader sr = new StreamReader(fileName))
-                {
+                {//Уникайте continue
                     while (!sr.EndOfStream)
                     {
                         string line = sr.ReadLine();
