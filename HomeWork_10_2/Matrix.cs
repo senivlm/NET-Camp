@@ -198,6 +198,14 @@ namespace HomeWork_10_2
         #endregion
 
         #region Enumerators
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        public IEnumerator<int> GetEnumerator()
+        {
+            return GetEnumeratorDiagonalSnake(Direction.RIGHT);
+        }
         public IEnumerator<int> GetEnumeratorHorizontalSnake()
         {
             List<(int, int)> indexes = GetIndexesHorizontalSnake();
@@ -219,10 +227,6 @@ namespace HomeWork_10_2
                 yield return matrix[x, y];
             }
          }
-        public IEnumerator<int> GetEnumerator()
-        {
-            return GetEnumeratorDiagonalSnake(Direction.RIGHT);
-        }
         public IEnumerable<int> GetEnumerableHorizontalSnake()
         {
             List<(int, int)> indexes = GetIndexesHorizontalSnake();
@@ -244,10 +248,7 @@ namespace HomeWork_10_2
                 yield return matrix[x, y];
             }
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+
         #endregion
 
         #region other_methods

@@ -198,6 +198,14 @@ namespace Math
         #endregion
 
         #region Enumerators
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
+        public IEnumerator<int> GetEnumerator()
+        {
+            return GetEnumeratorDiagonalSnake(Direction.RIGHT);
+        }
         public IEnumerator<int> GetEnumeratorHorizontalSnake()
         {
             List<(int, int)> indexes = GetIndexesHorizontalSnake();
@@ -218,10 +226,6 @@ namespace Math
             {
                 yield return matrix[x, y];
             }
-        }
-        public IEnumerator<int> GetEnumerator()
-        {
-            return GetEnumeratorDiagonalSnake(Direction.RIGHT);
         }
         public IEnumerable<int> GetEnumerableHorizontalSnake()
         {
@@ -244,10 +248,7 @@ namespace Math
                 yield return matrix[x, y];
             }
         }
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+
         #endregion
 
         #region other_methods
