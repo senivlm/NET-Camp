@@ -75,15 +75,13 @@ namespace HomeWork_08_3
         public static Storage operator -(Storage a, Storage b)
         {
             //Delete in A what is in B
-            IEnumerable<Product> newListForStorage = new List<Product>();
-            newListForStorage = a.products.Except(b.products);
+            IEnumerable<Product> newListForStorage = a.products.Except(b.products);
             return new Storage(newListForStorage, a);
         }
         public static Storage operator &(Storage a, Storage b)
         {
-            //Delete in A what is in B
-            IEnumerable<Product> newListForStorage = new List<Product>();
-            newListForStorage = a.products.Intersect(b.products);
+            //Save in A what is and in A and in B
+            IEnumerable<Product> newListForStorage = a.products.Intersect(b.products);
             return new Storage(newListForStorage, a);
         }
         public IEnumerator GetEnumerator()
