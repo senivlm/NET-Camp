@@ -1,0 +1,18 @@
+Enter the translation of the word: to
+You entered: 324r
+The entered word is incorrect
+Enter the translation of the word: to
+You entered: 23re
+The entered word is incorrect
+Enter the translation of the word: to
+You entered: world
+
+Original text:
+I go;     to....
+school
+  SCHOOL I go;.
+
+Translated text:
+Am hi;     to....
+wait
+  WAIT Am hi;.
