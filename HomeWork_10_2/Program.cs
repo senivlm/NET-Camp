@@ -7,6 +7,11 @@ using HomeWork_10_2;
 using System.Text;
 
 //Є БАГАТО ЗАПИТАНЬ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//1. яка різниця між IEnumerable<int> і IEnumerable
+//2. при реалізации IEnumerable<int> треба реалізувати "IEnumerator IEnumerable.GetEnumerator()" коли він використовуеються?
+//3. Якщо реалізувати IEnumerable, то ми реалізуємо методи що повертать IEnumerator, а у foreach ми можемо обирати
+//    потрібний IEnumerable. Не зміг пов'язати їх між собою і задублював код.
+//4. Як у foreach обирати потрібний IEnumerator, а не IEnumerable 
 
 try
 {
