@@ -14,9 +14,7 @@ Logger loggerSuccess = new("..\\..\\..\\LogSuccess.log");
 loggerSuccess.ExtDisplayAction = Console.WriteLine;
 
 //для перенаправлення виводу результату
-Logger Dispay = new("..\\..\\..\\DisplayResult.log");
-Dispay.ExtDisplayAction = Console.WriteLine;
-Dispay.WithTime = false;
+Logger Dispay = new("..\\..\\..\\DisplayResult.log") {WithTime = false, ExtDisplayAction = Console.WriteLine};
 
 //Сховище 1
 Storage storageA = new();
