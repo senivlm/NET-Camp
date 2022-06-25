@@ -13,6 +13,10 @@ namespace HomeWork_08_3
         private string fileName;
         #endregion
 
+        #region properties
+        public bool WithTime = true;
+        #endregion
+
         #region delegates
         public Action<string>? ExtDisplayAction;
         #endregion
@@ -41,9 +45,16 @@ namespace HomeWork_08_3
             }
             try 
             {
-                using (StreamWriter sw = new StreamWriter(fileName, true))
+                using (StreamWriter sw = new(fileName, true))
                 {
-                    sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm")}> {message}");
+                    if (WithTime)
+                    {
+                        sw.WriteLine($"{DateTime.Now.ToString("MM/dd/yyyy HH:mm")}> {message}");
+                    }
+                    else
+                    {
+                        sw.WriteLine(message);
+                    }
                 }
             }
             catch (Exception ex)

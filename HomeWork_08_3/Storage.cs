@@ -10,7 +10,7 @@ namespace HomeWork_08_3
     public class Storage : IEnumerable
     {
         #region fields
-        private List<Product> products = new();
+        private readonly List<Product> products;
         #endregion
 
         #region delegates
@@ -24,7 +24,7 @@ namespace HomeWork_08_3
         #endregion
 
         #region constructors
-        public Storage() { }
+        public Storage() => products = new();
         public Storage(params Product[] productsInit) : this()
         {
             foreach (Product product in productsInit)
@@ -46,15 +46,14 @@ namespace HomeWork_08_3
             this.LoggerErrorAdd += storageContext.LoggerErrorAdd;
             this.LoggerSuccessAdd += storageContext.LoggerSuccessAdd;
         }
-
         #endregion
 
         #region indexes
         public Product this[int index]
-        {
+        { 
             get
             {
-                if (index >= products.Count || index < 0)
+                if (index < 0 || index >= products.Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -62,7 +61,7 @@ namespace HomeWork_08_3
             }
             set
             {
-                if ((index < 0) || (index >= products.Count))
+                if (index < 0 || index >= products.Count)
                 {
                     throw new IndexOutOfRangeException();
                 }
@@ -75,14 +74,56 @@ namespace HomeWork_08_3
         public static Storage operator -(Storage a, Storage b)
         {
             //Delete in A what is in B
-            IEnumerable<Product> newListForStorage = a.products.Except(b.products);
-            return new Storage(newListForStorage, a);
+            Dictionary<Product, int> dic1 = a.ConvertToDictionaty();
+            Dictionary<Product, int> dic2 = b.ConvertToDictionaty();
+
+            List<Product> ListResult = new();
+
+            foreach (KeyValuePair<Product, int> pair in dic1)
+            {
+                int count;
+                Product currentProduct = pair.Key;
+                if (!dic2.ContainsKey(currentProduct))
+                {
+                    count = pair.Value;
+                }
+                else
+                {
+                    count = pair.Value - dic2[currentProduct];
+                }
+                while (count > 0)
+                {
+                    ListResult.Add(currentProduct);
+                    count--;
+                }
+            }
+
+            return new Storage(ListResult, a);
         }
         public static Storage operator &(Storage a, Storage b)
         {
             //Save in A what is and in A and in B
-            IEnumerable<Product> newListForStorage = a.products.Intersect(b.products);
-            return new Storage(newListForStorage, a);
+            Dictionary<Product, int> dic1 = a.ConvertToDictionaty();
+            Dictionary<Product, int> dic2 = b.ConvertToDictionaty();
+
+            List<Product> ListResult = new();
+
+            foreach (KeyValuePair<Product, int> pair in dic1)
+            {
+                int count = 0;
+                Product currentProduct = pair.Key;
+                if (dic2.ContainsKey(currentProduct))
+                {
+                    count = (pair.Value > dic2[currentProduct]) ? dic2[currentProduct] : pair.Value;
+                }
+                while (count > 0)
+                {
+                    ListResult.Add(currentProduct);
+                    count--;
+                }
+            }
+
+            return new Storage(ListResult, a);
         }
         public IEnumerator GetEnumerator()
         {
@@ -91,6 +132,37 @@ namespace HomeWork_08_3
         #endregion
 
         #region methods
+        public void Add(Product prod)
+        {
+            products.Add(prod);
+        }
+        public void ShowAll(string header = "ShowAll")
+        {
+            ExtDisplayAction?.Invoke("");
+            ExtDisplayAction?.Invoke(header);
+            if (this.products.Count == 0)
+            {
+                ExtDisplayAction?.Invoke("Storage Empry");
+            }
+            else
+            {
+                foreach (Product prod in this.products)
+                {
+                    ExtDisplayAction?.Invoke(prod?.ToString() ?? "Empry");
+                }
+            }
+
+        }
+        public Storage Except(Storage secondStor)
+        {
+            IEnumerable<Product> newListForStorage = this.products.Except(secondStor.products);
+            return new Storage(newListForStorage, this);
+        }
+        public Storage Intersect(Storage secondStor)
+        {
+            IEnumerable<Product> newListForStorage = this.products.Intersect(secondStor.products);
+            return new Storage(newListForStorage, this);
+        }
         public void ReadProductsFromFile(string path, string fileName)
         {
             int numberOfTries = 3;
@@ -200,32 +272,13 @@ namespace HomeWork_08_3
             }
 
         }
-        public void Add(Product prod)
-        {
-            products.Add(prod);
-        }
-        public void ShowAll(string header = "ShowAll")
-        {
-            ExtDisplayAction?.Invoke("");
-            ExtDisplayAction?.Invoke(header);
-            if (this.products.Count == 0 )
-            {
-                ExtDisplayAction?.Invoke("Storage Empry");
-            }
-            else
-            {
-                foreach (Product prod in this.products)
-                {
-                    ExtDisplayAction?.Invoke(prod?.ToString() ?? "Empry");
-                }
-            }
+        #endregion
 
-        }
-        public Dictionary<Product, int> ConvertToDictionaty()
+        #region private_methods
+        private Dictionary<Product, int> ConvertToDictionaty()
         {
             Dictionary<Product, int> dictionary = new();
-
-            foreach(Product prod in products)
+            foreach (Product prod in products)
             {
                 if (dictionary.ContainsKey(prod))
                 {
@@ -236,66 +289,9 @@ namespace HomeWork_08_3
                     dictionary[prod] = 1;
                 }
             }
-
             return dictionary;
         }
-        public Storage Except(Storage secondStor)
-        {
-            Dictionary<Product, int> dic1 = this.ConvertToDictionaty();
-            Dictionary<Product, int> dic2 = secondStor.ConvertToDictionaty();
-
-            List<Product> ListResult = new();
-
-            foreach (KeyValuePair<Product, int> pair in dic1)
-            {
-                int count;
-                Product currentProduct = pair.Key;
-                if (!dic2.ContainsKey(currentProduct))
-                {
-                    count = pair.Value;
-                }
-                else
-                {
-                    count = pair.Value - dic2[currentProduct];
-                }
-                while (count > 0)
-                {
-                    ListResult.Add(currentProduct);
-                    count--;
-                }
-            }
-
-            return new Storage(ListResult, this);
-
-        }
-
-        public Storage Intersect(Storage secondStor)
-        {
-            Dictionary<Product, int> dic1 = this.ConvertToDictionaty();
-            Dictionary<Product, int> dic2 = secondStor.ConvertToDictionaty();
-
-            List<Product> ListResult = new();
-
-            foreach (KeyValuePair<Product, int> pair in dic1)
-            {
-                int count = 0;
-                Product currentProduct = pair.Key;
-                if (dic2.ContainsKey(currentProduct))
-                {
-                    count = (pair.Value > dic2[currentProduct])? dic2[currentProduct]: pair.Value;
-                }
-                while (count > 0)
-                {
-                    ListResult.Add(currentProduct);
-                    count--;
-                }
-            }
-
-            return new Storage(ListResult, this);
-
-        }
         #endregion
-
 
     }
 }

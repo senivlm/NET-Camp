@@ -16,6 +16,7 @@ loggerSuccess.ExtDisplayAction = Console.WriteLine;
 //для перенаправлення виводу результату
 Logger Dispay = new("..\\..\\..\\DisplayResult.log");
 Dispay.ExtDisplayAction = Console.WriteLine;
+Dispay.WithTime = false;
 
 //Сховище 1
 Storage storageA = new();
@@ -40,16 +41,16 @@ storageA.ShowAll("storageA");
 storageB.ShowAll("storageB");
 
 //1. Товари є в першому складі і немає в другому.
-Storage storage1 = storageA.Except(storageB);
-storage1.ShowAll("storageA.Except(storageB)");
+Storage storage1 = storageA - storageB;
+storage1.ShowAll("storageA - storageB");
 
 //2. Товари, які  є спільними в обох складах.
-Storage storage2 = storageA.Intersect(storageB);
-storage2.ShowAll("storageA.Intersect(storageB)");
+Storage storage2 = storageA & storageB;
+storage2.ShowAll("storageA & storageB");
 
 //3. Спільний список товарів, які є на обох складах, без повторів елементів.
-Storage storage3 = storageA & storageB;
-storage3.ShowAll("storage3 = storageA & storageB");
+Storage storage3 = storageA.Intersect(storageB);
+storage3.ShowAll("storageA.Intersect(storageB)");
 
 
 

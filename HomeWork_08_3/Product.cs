@@ -36,7 +36,7 @@ namespace HomeWork_08_3
         {
             return Equals(obj as Product);
         }
-        public bool Equals(Product? other) //IEquatable<Product>
+        public virtual bool Equals(Product? other) //IEquatable<Product>
         {
             if (other == null)
             {
