@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace HomeWork_10_2
 {
     public class Matrix : IEnumerable<int>
-    {
+    {// дуже добре.
         #region fields
         private int[,] matrix;
         #endregion
