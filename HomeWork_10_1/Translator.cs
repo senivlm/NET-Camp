@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HomeWork_10_1
 {
     public class Translator
-    {
+    {// чому обрано клас String, а не StringBuilder
         private const int COUNT_TRY = 3;
         private TranslatorDictionary vocabluary;
 
@@ -18,7 +18,7 @@ namespace HomeWork_10_1
 
         public Translator() : this(new TranslatorDictionary()) { }
         public Translator(TranslatorDictionary dictionary)
-        {
+        {// проблема неглибоких копій
             this.vocabluary = dictionary;
         }
 
@@ -76,6 +76,7 @@ namespace HomeWork_10_1
 
         private List<string> TextSplit(string text)
         {
+            // Навіщо це робити вручну?
             List<string> strings = new();
 
             bool isWorld = false;
