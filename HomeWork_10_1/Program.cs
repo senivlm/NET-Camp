@@ -25,6 +25,7 @@ namespace HomeWork_10_1
                 //Налаштовуємо перекладач
                 Translator translator = new(dictionary);
                 translator.ExtDisplayAction = Console.WriteLine;
+                //Подія тут є вдалою.
                 translator.ExtDisplayAction += Dispay.Add;
                 translator.ExtInputAction = Console.ReadLine;
 
