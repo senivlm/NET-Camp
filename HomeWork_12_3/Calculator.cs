@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HomeWork_12_3
 {
     public class Calculator
-    {
+    {//Операції не обов'язково складаються з одного символа
         private static Dictionary<char, Operation> operationPriority = new() {
         {'(', new(0)},
         {'+', new(1, (x,y)=>(x+y))},
@@ -17,6 +17,7 @@ namespace HomeWork_12_3
         {'^', new(3, (x,y)=>Math.Pow(x, y))},
 
         //функції
+        // А змістовніше можна називати?
         {'a', new(99, (x,y)=>Math.Cos(y), true, "cos")},
         {'b', new(99, (x,y)=>Math.Sin(y), true, "sin")},
         {'c', new(99, (x,y)=>Math.Tan(y), true, "tan")},
@@ -36,6 +37,7 @@ namespace HomeWork_12_3
                 outputList.Clear();
             }
         }
+        // Чому через лямбду?
         public string OutputString => GetPolandFormula();
         public double Result => Calc();
         
@@ -66,15 +68,17 @@ namespace HomeWork_12_3
             {
 
                 char currentChar = inputString[i];
+                // Перший символ визначити поза циклом і не застосовувати цю умову в циклі
                 char previusChar = (i==0) ? ' ' : inputString[i-1];
 
                 if (currentChar == ' ')
-                {
+                {// уникайте 
                     continue;
                 }
 
                 //підміна 1
                 // 324( пертворюемо на 324*(
+                //мав бути правильний запис)))
                 if (currentChar == '(' && Char.IsDigit(previusChar) && !addStar)
                 {
                     addStar = true;
@@ -96,6 +100,7 @@ namespace HomeWork_12_3
                 if (currentChar == '(')
                 {
                     //	Скобку у стек
+                    // Дужку у стек:)
                     stack.Push(currentChar);
                     addStar = false;
                 }
@@ -110,6 +115,7 @@ namespace HomeWork_12_3
                 else if(Char.IsDigit(currentChar))
                 {
                     //	Число у результат
+                    // Вже у Вас третього бачу цю функцію з однаковою сигнатурою. Синхронне мислення?
                     outputList.Add(GetNumber(inputString, ref i));
                 }
                 //	оператор
@@ -160,7 +166,7 @@ namespace HomeWork_12_3
 
                 //Число
                 if (Char.IsDigit(firstChar))
-                {
+                {// Не завжди так треба!Все залежить від налаштувань. Тут треба тоньше запрограмувати
                     locals.Push(Double.Parse(currentElement.Replace(".", ",")));
                 }
                 //оператор
