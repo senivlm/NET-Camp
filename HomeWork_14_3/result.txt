@@ -1,0 +1,22 @@
+Якщо клас з патерном Одинак, то не можна так: Storage<IProduct> storage = new()
+
+Створення Storage<IProduct> storage1:
+GetInstance 17:16:44.3151910
+Storage() 17:16:44.4433133
+storage1.Guid=94610138-7916-40c5-b49d-93b74d66b540
+
+Створення Storage<IProduct> storage2:
+GetInstance 17:16:44.5960718
+storage2.Guid=94610138-7916-40c5-b49d-93b74d66b540
+
+Створення Storage<IWeightProduct> storage3:
+GetInstance 17:16:45.5466322
+Storage() 17:16:45.5522550
+storage3.Guid=8745212e-f4dd-4380-82ca-133afb66c5ea
+
+порівняємо (storage1.Guid == storage2.Guid) = True
+співаадають - це той самий одинак
+
+порівняємо (storage1.Guid == storage3.Guid) = False
+різні - це різні одинаки
+
