@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace HomeWork_14_3
 {
-    //ваговий товар
-    public interface IWeightProduct : IProduct
+    public interface IProductFactory
     {
-        public float FractionSize { get; }
+        Product ReadFromString(string str);
     }
 }

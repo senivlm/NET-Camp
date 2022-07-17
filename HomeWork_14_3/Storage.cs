@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace HomeWork_14_3
 {
-    public class Storage<T> : IEnumerable<T> where T:IProduct
+    public class Storage<T> : IEnumerable<T> where T:Product
     {
         #region fields
         private static readonly Lazy<Storage<T>> lazy = new Lazy<Storage<T>>(() => new Storage<T>());
@@ -26,13 +26,13 @@ namespace HomeWork_14_3
         #region constructors
         private Storage()
         {
-            ExtDisplayAction?.Invoke($"Storage() {DateTime.Now.TimeOfDay}");
+            ExtDisplayAction?.Invoke($"Конструктор Storage() {DateTime.Now.TimeOfDay}");
             guid = System.Guid.NewGuid().ToString();
             products = new();
         }
         public static Storage<T> GetInstance()
         {
-            ExtDisplayAction?.Invoke($"GetInstance {DateTime.Now.TimeOfDay}");
+            ExtDisplayAction?.Invoke($"Отримання одинака GetInstance() {DateTime.Now.TimeOfDay}");
             return lazy.Value;
         }
         #endregion

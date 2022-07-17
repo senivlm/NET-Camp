@@ -1,22 +1,38 @@
+Абстрактна фабрика
+
+Отримання одинака GetInstance() 13:19:41.1922710
+Конструктор Storage() 13:19:41.2011586
+Додавання у storage через фабрику FoodProductFactory()
+Додавання у storage через фабрику IndustrialProductFactory()
+
+Storage: 496f9f06-3553-4995-8f88-de5bf72f9c05
+Продукти у  storage
+Type: FoodProduct  Name:FoodProduct_1
+Type: FoodProduct  Name:FoodProduct_2
+Type: IndustrialProduct  Name:IndustrialProduct_1
+Type: IndustrialProduct  Name:IndustrialProduct_2
+
+Тестування Одинака
+
 Якщо клас з патерном Одинак, то не можна так: Storage<IProduct> storage = new()
 
-Створення Storage<IProduct> storage1:
-GetInstance 17:16:44.3151910
-Storage() 17:16:44.4433133
-storage1.Guid=94610138-7916-40c5-b49d-93b74d66b540
+Створення Storage<IndustrialProduct> storage1:
+Отримання одинака GetInstance() 13:19:41.4005537
+Конструктор Storage() 13:19:41.4131461
+storage1.Guid=15f4ef7d-d2f0-4321-9322-d09e6811ba67
 
-Створення Storage<IProduct> storage2:
-GetInstance 17:16:44.5960718
-storage2.Guid=94610138-7916-40c5-b49d-93b74d66b540
+Створення Storage<IndustrialProduct> storage2:
+Отримання одинака GetInstance() 13:19:41.4232167
+storage2.Guid=15f4ef7d-d2f0-4321-9322-d09e6811ba67
 
-Створення Storage<IWeightProduct> storage3:
-GetInstance 17:16:45.5466322
-Storage() 17:16:45.5522550
-storage3.Guid=8745212e-f4dd-4380-82ca-133afb66c5ea
+Створення Storage<FoodProduct> storage3:
+Отримання одинака GetInstance() 13:19:41.4294812
+Конструктор Storage() 13:19:41.4310636
+storage3.Guid=2f288bca-8f52-4e3d-a9eb-3faa9b65321d
 
-порівняємо (storage1.Guid == storage2.Guid) = True
-співаадають - це той самий одинак
+порiвняємо (storage1.Guid == storage2.Guid) = True
+спiваадають - це той самий одинак
 
-порівняємо (storage1.Guid == storage3.Guid) = False
-різні - це різні одинаки
+порiвняємо (storage1.Guid == storage3.Guid) = False
+рiзнi - це рiзнi одинаки
 
