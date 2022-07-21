@@ -14,7 +14,8 @@ ExtDisplayAction += Console.WriteLine;
 ////////////////////////////////////////////////////////////////////////////////////
 
 //не зрозумiло як "гарно" зробити статичнi дегелати для класу з узагальненям.
-//а делегати статичнi, тому, що бажаю виводити iнфу зi статичного методу класу
+//а делегати статичнi, тому, що бажаю виводити iнфу зi статичного методу класу.
+// Не впевнена,  що встигнемо це обговорити в групі. Хіба підберемо час індивідуально
 Storage<Product>.ExtDisplayAction = ExtDisplayAction;
 Storage<FoodProduct>.ExtDisplayAction = ExtDisplayAction;
 Storage<IndustrialProduct>.ExtDisplayAction = ExtDisplayAction;
@@ -75,5 +76,6 @@ ExtDisplayAction("порiвняємо (storage1.Guid == storage3.Guid) = " + (st
 ExtDisplayAction("рiзнi - це рiзнi одинаки");
 ExtDisplayAction("");
 
+//А що з серіалізацією?
 
 
